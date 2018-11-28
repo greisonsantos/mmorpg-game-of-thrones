@@ -1,3 +1,3 @@
-module.exports.index = function(application, re, res){
+module.exports.index = function(application, req, res){
 	res.render('index');
 }

@@ -1,21 +1,27 @@
-module.exports.cadastro = function(application, req,res){
- 	res.render('cadastro', {validacao: {}, dadosForm:{}});
+module.exports.cadastro = function (application, req, res){
+	res.render('cadastro', {validacao: {}, dadosForm: {}});
 }
 
-module.exports.cadastrar = function(application, req,res){
- 	// res.send("teste");
-    var dadosForm = req.body;
+module.exports.cadastrar = function(application, req, res){
 
-    req.assert('nome', 'Nome não pode ser vazio').notEmpty();
-    req.assert('usuario', 'Usuario não pode ser vazio').notEmpty();
-    req.assert('senha', 'Senha não pode ser vazio').notEmpty();
-    req.assert('casa', 'Casa não pode ser vazio').notEmpty();
+	var dadosForm = req.body;
 
-    var erros = req.validationErrors();
+	req.assert('nome', 'Nome não pode ser vazio').notEmpty();
+	req.assert('usuario', 'Usuário não pode ser vazio').notEmpty();
+	req.assert('senha', 'Senha não pode ser vazio').notEmpty();
+	req.assert('casa', 'Casa não pode ser vazio').notEmpty();
 
-    if (erros){
-    	res.render('cadastro', {validacao : erros, dadosForm: dadosForm});
-    	return;
-    }
-    res.send("podemos cadastrar");
+	var erros = req.validationErrors();
+
+	if(erros){
+		res.render('cadastro', {validacao: erros, dadosForm: dadosForm});
+		return;
+	}
+
+	var connection = application.config.dbConnection;
+	var UsuariosDAO = new application.app.models.UsuariosDAO(connection);
+
+	UsuariosDAO.inserirUsuario(dadosForm);
+
+	res.send('podemos cadastrar')
 }
