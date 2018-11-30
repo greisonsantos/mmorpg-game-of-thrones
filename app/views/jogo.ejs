@@ -21,7 +21,7 @@
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container">
 				<div class="form-group sair">
-					<button type="button" class="btn btn-info pull-right">Sair</button>
+					<button type="button" class="btn btn-info pull-right" id="btn_sair">Sair</button>
 				</div>
 			</div>
 		</nav>
@@ -91,3 +91,11 @@
 		</div>
 	</body>
 </html>
+<script type="text/javascript" charset="utf-8" async defer>
+   $(document).ready(function(){
+      $('#btn_sair').click(function(){
+         window.location.href= '/sair';
+
+      });
+   });
+</script>
